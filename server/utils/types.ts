@@ -26,11 +26,14 @@ export interface IStore {
 }
 
 export interface ICategory {
+  store_Id?: ObjectId;
   name: string;
   image: string;
 }
 
 export interface IProduct {
+  store_Id?: ObjectId;
+  category?: ObjectId;
   name: String;
   slug: String;
   description: String;
@@ -39,24 +42,29 @@ export interface IProduct {
   images: String;
   brand: String;
   price: Number;
-  category: ObjectId;
   countInStock: Number;
   rating: Number;
   numReviews: Number;
   isFeatured: Boolean;
 }
 
+export interface IOrderItems {
+  quantity: Number;
+  product: ObjectId;  
+}
+
 export interface IOrder {
-    orderItems: ObjectId;
-    shippingAddress1: String;
-    shippingAddress2: String;
-    city: String;
-    zip: String;
-    country:String;
-    phone: String;
-    status: String;
-    totalPrice: Number;
-    user: ObjectId;
+  user_id?: ObjectId;
+  store_Id?: ObjectId;
+  orderItems?: ObjectId;
+  shippingAddress1: String;
+  shippingAddress2: String;
+  city: String;
+  zip: String;
+  country:String;
+  phone: String;
+  status: String;
+  totalPrice: Number;
 }
 
 export interface IUserWallet {
@@ -73,3 +81,11 @@ export interface IWalletTransaction {
   amount: number;
   type: string;
 }
+
+export interface IWalletPurchaseHist {
+  store_id?: ObjectId;
+  user_id?: ObjectId;
+  amount: Number;
+  order: ObjectId;
+}
+

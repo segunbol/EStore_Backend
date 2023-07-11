@@ -3,10 +3,16 @@ import paginate from "mongoose-paginate-v2";
 import { ICategory } from "../utils/types";
 
 const CategorySchema = new Schema<ICategory>(
-  {
+  { 
+    store_Id: {
+      type: Schema.Types.ObjectId,
+      required: true,
+      
+    },
     name: {
       type: String,
       required: true,
+      unique: true,
     },
     image: {
       type: String,

@@ -1,37 +1,34 @@
-import { Joi } from "./joi";
+import Joi from 'joi';
 
-export const createAccountBalanceSchema = {
+export const createUserWalletSchema = {
   body: Joi.object({
-    store_ID: Joi.objectId().required(),
-    userID: Joi.objectId().required(),
+    store_id: Joi.string().required(),
+    user_id: Joi.string().required(),
+    wallet_number: Joi.number().required(),
     balance: Joi.number().required(),
   }),
 };
 
-export const updateAccountBalanceSchema = {
+export const updateUserWalletSchema = {
   params: Joi.object({
-    userID: Joi.objectId().required(),
+    walletId: Joi.string().required(),
   }),
   body: Joi.object({
-    store_ID: Joi.objectId().required(),
-    amount: Joi.objectId().required(),
-    // accountBalanceID: Joi.objectId().required(),
+    store_id: Joi.string().required(),
+    user_id: Joi.string().required(),
+    wallet_number: Joi.number().required(),
+    balance: Joi.number().required(),
   }),
 };
 
-export const getAccountBalanceSchema = {
+export const getUserWalletSchema = {
   params: Joi.object({
-    userID: Joi.objectId().required(),
-  }),
-  body: Joi.object({
-    store_ID: Joi.objectId().required(),
-    // accountBalanceID: Joi.objectId().required(),
+    walletId: Joi.string().required(),
   }),
 };
 
-export const getAccountBalancesSchema = {
-    query: Joi.object({
-        balance:Joi.number().allow(),
-        store_ID: Joi.objectId().allow()
-    })
-}
+export const deleteUserWalletSchema = {
+  params: Joi.object({
+    walletId: Joi.string().required(),
+  }),
+};

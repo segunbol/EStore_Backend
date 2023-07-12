@@ -27,7 +27,7 @@ const UserSchema = new mongoose_1.Schema({
     },
     isAdmin: {
         type: Boolean,
-        required: true,
+        required: false,
     },
     apartment: {
         type: String,

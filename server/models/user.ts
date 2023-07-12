@@ -26,7 +26,7 @@ const UserSchema = new Schema<IUser>(
     },
     isAdmin: {
       type: Boolean,
-      required: true,
+      required: false,
     },
     apartment: {
       type: String,

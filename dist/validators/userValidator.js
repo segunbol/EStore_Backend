@@ -1,50 +1,81 @@
 "use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteUserSchema = exports.getUserSchema = exports.updateUserSchema = exports.createUserSchema = void 0;
-const joi_1 = __importDefault(require("joi"));
+exports.deleteUserSchema = exports.getUserSchema = exports.makeAdminSchema = exports.updateUserSchema = exports.createUserSchema = void 0;
+const Joi = __importStar(require("joi"));
 exports.createUserSchema = {
-    body: joi_1.default.object({
-        first_name: joi_1.default.string().required(),
-        last_name: joi_1.default.string().required(),
-        email: joi_1.default.string().required(),
-        passwordHash: joi_1.default.string().required(),
-        phone: joi_1.default.number().required(),
-        isAdmin: joi_1.default.boolean().required(),
-        apartment: joi_1.default.string().required(),
-        street: joi_1.default.string().required(),
-        zip: joi_1.default.string().required(),
-        city: joi_1.default.string().required(),
-        country: joi_1.default.string().required(),
+    body: Joi.object({
+        first_name: Joi.string().required(),
+        last_name: Joi.string().required(),
+        email: Joi.string().required(),
+        passwordHash: Joi.string().required(),
+        phone: Joi.number().required(),
+        isAdmin: Joi.boolean().required(),
+        apartment: Joi.string().required(),
+        street: Joi.string().required(),
+        zip: Joi.string().required(),
+        city: Joi.string().required(),
+        country: Joi.string().required(),
     }),
 };
 exports.updateUserSchema = {
-    params: joi_1.default.object({
-        userId: joi_1.default.string().required(),
+    params: Joi.object({
+        userId: Joi.string().regex(/^[0-9a-fA-F]{24}$/).required(),
     }),
-    body: joi_1.default.object({
-        first_name: joi_1.default.string().allow(),
-        last_name: joi_1.default.string().allow(),
-        email: joi_1.default.string().allow(),
-        passwordHash: joi_1.default.string().allow(),
-        phone: joi_1.default.number().allow(),
-        isAdmin: joi_1.default.boolean().allow(),
-        apartment: joi_1.default.string().allow(),
-        street: joi_1.default.string().allow(),
-        zip: joi_1.default.string().allow(),
-        city: joi_1.default.string().allow(),
-        country: joi_1.default.string().allow(),
+    body: Joi.object({
+        adminUserId: Joi.string().regex(/^[0-9a-fA-F]{24}$/).required(),
+        userID: Joi.string().regex(/^[0-9a-fA-F]{24}$/).required(),
+        first_name: Joi.string().allow(),
+        last_name: Joi.string().allow(),
+        email: Joi.string().allow(),
+        passwordHash: Joi.string().allow(),
+        phone: Joi.number().allow(),
+        isAdmin: Joi.boolean().allow(),
+        apartment: Joi.string().allow(),
+        street: Joi.string().allow(),
+        zip: Joi.string().allow(),
+        city: Joi.string().allow(),
+        country: Joi.string().allow(),
     }),
 };
+exports.makeAdminSchema = {
+    params: Joi.object({
+        userId: Joi.string().regex(/^[0-9a-fA-F]{24}$/).required(),
+    }),
+    body: Joi.object({
+        adminUserId: Joi.string().regex(/^[0-9a-fA-F]{24}$/).required(),
+        isAdmin: Joi.boolean().required(),
+    })
+};
 exports.getUserSchema = {
-    params: joi_1.default.object({
-        userId: joi_1.default.string().required(),
+    params: Joi.object({
+        userId: Joi.string().required(),
     }),
 };
 exports.deleteUserSchema = {
-    params: joi_1.default.object({
-        userId: joi_1.default.string().required(),
+    params: Joi.object({
+        userId: Joi.string().required(),
     }),
 };

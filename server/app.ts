@@ -5,6 +5,7 @@ import cors from 'cors';
 import logger from 'morgan';
 import { errorMiddleware } from './middlewares/errorMiddleware';
 import dotenv from 'dotenv';
+import userRoutes from "./routes/userRoutes";
 
 dotenv.config();
 
@@ -38,6 +39,9 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(logger('dev'));
 
+// app.use('/')
+// app.use('/', );
+app.use('/api/v2/users', userRoutes);
 app.listen(3000, ()=> { 
     console.log("Wa ti ma gbor") 
 })

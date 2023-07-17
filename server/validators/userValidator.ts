@@ -1,4 +1,4 @@
-import Joi from 'joi';
+import * as Joi from 'joi'
 
 export const createUserSchema = {
   body: Joi.object({
@@ -18,9 +18,11 @@ export const createUserSchema = {
 
 export const updateUserSchema = {
   params: Joi.object({
-    userId: Joi.string().required(),
+    userId: Joi.string().regex(/^[0-9a-fA-F]{24}$/).required(),
   }),
   body: Joi.object({
+    adminUserId: Joi.string().regex(/^[0-9a-fA-F]{24}$/).required(),
+    userID: Joi.string().regex(/^[0-9a-fA-F]{24}$/).required(),
     first_name: Joi.string().allow(),
     last_name: Joi.string().allow(),
     email: Joi.string().allow(),
@@ -33,6 +35,15 @@ export const updateUserSchema = {
     city: Joi.string().allow(),
     country: Joi.string().allow(),
   }),
+};
+
+export const makeAdminSchema = {
+  params: Joi.object({
+    userId: Joi.string().regex(/^[0-9a-fA-F]{24}$/).required(),
+  }),
+  body: Joi.object({
+    adminUserId: Joi.string().regex(/^[0-9a-fA-F]{24}$/).required(),
+    isAdmin: Joi.boolean().required(),})
 };
 
 export const getUserSchema = {
